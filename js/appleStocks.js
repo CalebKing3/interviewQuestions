@@ -13,24 +13,24 @@ var stockPricesYesterday = [10, 7, 5, 8, 11, 9];
 
 function getMaxProfit(stockPricesYesterday) {
 
+  var minPrice = stockPricesYesterday[0];
   var maxProfit = 0;
 
-  // go through every price and time
-  for (var earlierTime = 0; earlierTime < stockPricesYesterday.length; earlierTime++) {
-      var earlierPrice = stockPricesYesterday[earlierTime];
+  for (var i = 0; i < stockPricesYesterday.length; i++) {
+      var currentPrice = stockPricesYesterday[i];
 
-      // and go through all the LATER prices
-      for (var laterTime = earlierTime + 1; laterTime < stockPricesYesterday.length; laterTime++) {
-          var laterPrice = stockPricesYesterday[laterTime];
+      // ensure min_price is the lowest price we've seen so far
+      minPrice = Math.min(minPrice, currentPrice);
 
-          // see what our profit would be if we bought at the
-          // min price and sold at the current price
-          var potentialProfit = laterPrice - earlierPrice;
+      // see what our profit would be if we bought at the
+      // min price and sold at the current price
+      var potentialProfit = currentPrice - minPrice;
 
-          // update maxProfit if we can do better
-          maxProfit = Math.max(maxProfit, potentialProfit);
-      }
+      // update maxProfit if we can do better
+      maxProfit = Math.max(maxProfit, potentialProfit);
   }
 
   return maxProfit;
 }
+
+// Problem - What if the stock value stays the same? What if the stock value goes down all day?
